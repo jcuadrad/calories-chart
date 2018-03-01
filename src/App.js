@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Papa from 'papaparse';
+import { Chart } from 'chart.js'
 
 class App extends Component {
 
@@ -18,6 +19,7 @@ class App extends Component {
       results: results,
       rawData: this._transform(results.data)
     });
+    this.createChart(this.state.rawData);
     console.log(this.state.rawData);
   }
 
@@ -29,13 +31,13 @@ class App extends Component {
             data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
+                'rgba(255, 99, 132, 1)'
             ]
         }, {
             label: 'Calories Consumed',
             data: [],
             backgroundColor: [
-                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
                 'rgba(54, 162, 235, 1)',
             ]
         }
@@ -61,10 +63,28 @@ class App extends Component {
     })
   }
 
+  createChart = (data) => {
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <button onClick={() => this.parseFiles()}> PARSE! </button>
+        <canvas id="myChart" width="400" height="400"></canvas>
         <pre>
           {JSON.stringify(this.state.results, null, 2)}
         </pre>
