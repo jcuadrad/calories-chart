@@ -7,20 +7,18 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      results: 'Nothing!',
-      rawData: 'Whaat'
+      results: 'Nothing has been parsed yet!',
+      chartData: 'Whaat'
     }
-    this.parseFiles = this.parseFiles.bind(this);
-    this.showResult = this.showResult.bind(this);
   }
 
   showResult = (results) => {
     this.setState({
       results: results,
-      rawData: this._transform(results.data)
+      chartData: this._transform(results.data)
     });
-    this.createChart(this.state.rawData);
-    console.log(this.state.rawData);
+    this._createChart(this.state.chartData);
+    console.log(this.state.chartData);
   }
 
   _transform = (data) => {
@@ -63,7 +61,7 @@ class App extends Component {
     })
   }
 
-  createChart = (data) => {
+  _createChart = (data) => {
     var ctx = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
         type: 'bar',
