@@ -6,16 +6,47 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      results: 'Nothing!'
+      results: 'Nothing!',
+      rawData: 'Whaat'
     }
     this.parseFiles = this.parseFiles.bind(this);
     this.showResult = this.showResult.bind(this);
   }
 
-  showResult(results) {
+  showResult = (results) => {
     this.setState({
-      results: results
+      results: results,
+      rawData: this._transform(results.data)
     });
+    console.log(this.state.rawData);
+  }
+
+  _transform = (data) => {
+    let chartData = {
+        labels: [],
+        datasets: [{
+            label: 'Calories Burned',
+            data: [],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+            ]
+        }, {
+            label: 'Calories Consumed',
+            data: [],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+            ]
+        }
+                  ]
+    }
+    data.forEach(point => {
+      chartData.labels.push(point.Day);
+      chartData.datasets[0].data.push(point['Calories Burned']);
+      chartData.datasets[1].data.push(point['Calories Consumed']);
+    });
+    return chartData;
   }
 
   parseFiles() {
@@ -33,9 +64,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div onClick={() => this.parseFiles()}>
-          <h1>PARSE!</h1>
-        </div>
+        <button onClick={() => this.parseFiles()}> PARSE! </button>
         <pre>
           {JSON.stringify(this.state.results, null, 2)}
         </pre>
