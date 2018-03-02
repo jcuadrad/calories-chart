@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import Papa from 'papaparse';
 import { Chart } from 'chart.js'
 
+import './App.css';
+
 class App extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
+      link: 'https://cdn.glitch.com/794ebe4e-78f8-4c05-8e1d-a4d8ec75f1b6%2FCaloresTest.csv?1520012647551',
       results: 'Nothing has been parsed yet!',
       chartData: 'Whaat'
     }
@@ -29,6 +32,8 @@ class App extends Component {
             data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
                 'rgba(255, 99, 132, 1)'
             ]
         }, {
@@ -37,6 +42,8 @@ class App extends Component {
             backgroundColor: [
                 'rgba(54, 162, 235, 1)',
                 'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)'
             ]
         }
                   ]
@@ -50,7 +57,7 @@ class App extends Component {
   }
 
   parseFiles() {
-    Papa.parse('https://cdn.glitch.com/794ebe4e-78f8-4c05-8e1d-a4d8ec75f1b6%2FCaloresTest.csv?1519881962478', {
+    Papa.parse(this.state.link, {
       download: true,
       header: true,
       dynamicTyping: true,
@@ -67,25 +74,72 @@ class App extends Component {
         type: 'bar',
         data: data,
         options: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+                fontColor: 'white'
+            }
+          },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero:true,
+                        fontColor: 'white'
+                    },
+                    gridLines: {
+                      color: 'white'
+                    },
+                    scaleLabel: {
+                      fontColor: 'white'
                     }
+                },
+              ],
+                xAxes: [{
+                  ticks: {
+                    beginAtZero:true,
+                    fontColor: 'white'
+                },
+                  gridLines: {
+                    color: 'white'
+                  },
+                  scaleLabel: {
+                    fontColor: 'white'
+                  }
                 }]
             }
         }
     });
   }
 
+  handleChange = (event) => {
+    this.setState({link: event.target.value});
+  }
+
   render() {
     return (
       <div className="App">
-        <button onClick={() => this.parseFiles()}> PARSE! </button>
-        <canvas id="myChart" width="400" height="400"></canvas>
-        <pre>
-          {JSON.stringify(this.state.results, null, 2)}
-        </pre>
+        <div className="title">
+          <h1>Calories Chart</h1>
+        </div>
+        <div className="chart-container">
+         <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div className="bottom">
+          <div className="link-input">
+            <h1>CSV</h1>
+            <p>Put the link to your file here!</p>
+            <div className="info">
+              <input type="text" placeholder="https://...." value={this.state.link} onChange={this.handleChange}></input>
+              <button onClick={() => this.parseFiles()}> PARSE! </button>
+            </div>
+          </div>
+          <div className="raw-data">
+            <pre>
+              {JSON.stringify(this.state.results.data, null, 2)}
+            </pre>
+          </div>
+        </div>
       </div>
     );
   }
