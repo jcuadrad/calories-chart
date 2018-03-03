@@ -75,6 +75,17 @@ input {
 
 .info-icon {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 42px;
+}
+
+.tooltip {
+  display: none;
+  position: fixed;
+  top: 36px;
+  right: 6px;
+}
+
+.tooltip img {
+  width: 395px;
 }

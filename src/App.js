@@ -7,6 +7,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/fontawesome-free-solid'
 import './App.css';
 
+import tooltip from './assets/tooltip.png'
+
 class App extends Component {
 
   constructor(props) {
@@ -14,7 +16,8 @@ class App extends Component {
     this.state = {
       link: 'https://cdn.glitch.com/794ebe4e-78f8-4c05-8e1d-a4d8ec75f1b6%2FCaloresTest.csv?1520012647551',
       results: 'Nothing has been parsed yet!',
-      chartData: 'Whaat'
+      chartData: 'Whaat',
+      isHovered: false,
     }
   }
 
@@ -119,10 +122,29 @@ class App extends Component {
     this.setState({link: event.target.value});
   }
 
+  mouseOut = () => {
+    this.setState({
+      isHovered: true
+    })
+    console.log(this.state)
+  }
+
+  mouseEnter = () => {
+    this.setState({
+      isHovered: true
+    })
+    console.log(this.state)
+  }
+
   render() {
     return (
       <div className="App">
-        <FontAwesomeIcon icon={faInfoCircle} size="2x" className="info-icon" color="#43A4E6"/>
+        <FontAwesomeIcon icon={faInfoCircle} size="2x" className="info-icon" color="#43A4E6" 
+                        //  onMouseOut={() => this.mouseOut()} 
+                         onMouseOver={() => this.mouseEnter()}/>
+        <span className="tooltip">
+          <img src={tooltip} alt="data"/>
+        </span>
         <div className="title">
           <h1>Calories Chart</h1>
         </div>
