@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+
 import Papa from 'papaparse';
 import { Chart } from 'chart.js'
 
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/fontawesome-free-solid'
 import './App.css';
 
 class App extends Component {
@@ -119,6 +122,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <FontAwesomeIcon icon={faInfoCircle} size="2x" className="info-icon" color="#43A4E6"/>
         <div className="title">
           <h1>Calories Chart</h1>
         </div>
@@ -131,7 +135,7 @@ class App extends Component {
             <p>Put the link to your file here!</p>
             <div className="info">
               <input type="text" placeholder="https://...." value={this.state.link} onChange={this.handleChange}></input>
-              <button onClick={() => this.parseFiles()}> PARSE! </button>
+              <span className="button" onClick={() => this.parseFiles()}> PARSE! </span>
             </div>
           </div>
           <div className="raw-data">
