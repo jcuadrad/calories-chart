@@ -80,7 +80,6 @@ input {
 }
 
 .tooltip {
-  display: none;
   position: fixed;
   top: 36px;
   right: 6px;

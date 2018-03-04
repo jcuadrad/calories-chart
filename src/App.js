@@ -124,27 +124,27 @@ class App extends Component {
 
   mouseOut = () => {
     this.setState({
-      isHovered: true
+      isHovered: false
     })
-    console.log(this.state)
   }
 
   mouseEnter = () => {
     this.setState({
       isHovered: true
     })
-    console.log(this.state)
   }
 
   render() {
     return (
       <div className="App">
         <FontAwesomeIcon icon={faInfoCircle} size="2x" className="info-icon" color="#43A4E6" 
-                        //  onMouseOut={() => this.mouseOut()} 
-                         onMouseOver={() => this.mouseEnter()}/>
-        <span className="tooltip">
-          <img src={tooltip} alt="data"/>
-        </span>
+                         onMouseOut={() => this.mouseOut()} 
+                         onClick={() => this.mouseEnter()}/>
+         {this.state.isHovered ? 
+          <span className="tooltip">
+            <img src={tooltip} alt="data"/>
+          </span> : null
+        }
         <div className="title">
           <h1>Calories Chart</h1>
         </div>
