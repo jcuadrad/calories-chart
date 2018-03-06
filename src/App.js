@@ -161,9 +161,16 @@ class App extends Component {
             </div>
           </div>
           <div className="raw-data">
-            <pre>
-              {JSON.stringify(this.state.results.data, null, 2)}
-            </pre>
+            {this.state.results.data ?
+              this.state.results.data.map(info => {
+              return (
+                <div className="info-container">
+                  <h2>{info.Day}</h2>
+                  <p>{info['Calories Consumed']}</p>
+                  <p>{info['Calories Burned']}</p>
+                </div>
+              )
+            }) : null }
           </div>
         </div>
       </div>

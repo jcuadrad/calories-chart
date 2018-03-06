@@ -16,6 +16,13 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-size: 17px;
+  color: white;
+  padding: 9px;
+  border: 3px solid #FED731;
+}
+
 input {
   padding: 18px;
     width: 202px;
@@ -87,4 +94,12 @@ input {
 
 .tooltip img {
   width: 395px;
+}
+
+.info-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
